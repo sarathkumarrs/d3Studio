@@ -432,13 +432,19 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   box-shadow: 0 24px 60px rgba(0,0,0,0.28);
 }
 .accessory-image-wrap {
+  width: 100%; border: none; cursor: zoom-in;
   height: 240px; background: #f6f4ef;
   display: flex; align-items: center; justify-content: center;
   border-bottom: 1px solid rgba(201,169,110,0.16);
+  overflow: hidden;
 }
 .accessory-image {
   width: 100%; height: 100%; object-fit: contain;
-  padding: 22px; display: block;
+  padding: 22px; display: block; transition: transform 0.35s ease;
+}
+.accessory-image-wrap:hover .accessory-image { transform: scale(1.04); }
+.accessory-image-wrap:focus-visible {
+  outline: 2px solid #c9a96e; outline-offset: -4px;
 }
 .accessory-info {
   min-height: 160px; padding: 24px 20px 20px;
@@ -477,6 +483,49 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   .accessory-info { min-height: 150px; padding: 18px 14px 14px; gap: 12px; }
   .accessory-card h3 { font-size: 11px; min-height: 48px; }
   .accessory-query { min-height: 40px; font-size: 10px; }
+}
+
+/* --- ACCESSORY PREVIEW --- */
+.accessory-preview-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  background: rgba(0,0,0,0.86); backdrop-filter: blur(10px);
+  display: none; align-items: center; justify-content: center;
+  padding: clamp(18px, 4vw, 56px);
+}
+.accessory-preview-overlay.open { display: flex; animation: fadeIn 0.25s ease; }
+.accessory-preview-box {
+  position: relative; width: min(1080px, 96vw);
+  background: linear-gradient(165deg, #1b1b1b 0%, #101010 100%);
+  border: 1px solid rgba(201,169,110,0.28);
+}
+.accessory-preview-close {
+  position: absolute; top: 14px; right: 14px; z-index: 1;
+  width: 40px; height: 40px; border: 1px solid rgba(201,169,110,0.32);
+  background: rgba(10,10,10,0.72); color: #c9a96e;
+  font-size: 24px; line-height: 1; cursor: pointer;
+}
+.accessory-preview-close:focus-visible {
+  outline: 2px solid #c9a96e; outline-offset: 3px;
+}
+.accessory-preview-image-stage {
+  min-height: min(72vh, 720px); background: #f6f4ef;
+  display: flex; align-items: center; justify-content: center;
+}
+.accessory-preview-image {
+  width: 100%; max-height: min(72vh, 720px);
+  object-fit: contain; padding: clamp(18px, 4vw, 48px);
+}
+.accessory-preview-caption {
+  padding: 20px 24px 22px;
+  color: #f5f0e8; font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 500; text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .accessory-preview-overlay { padding: 12px; }
+  .accessory-preview-image-stage { min-height: 64vh; }
+  .accessory-preview-image { max-height: 64vh; padding: 14px; }
+  .accessory-preview-caption { padding: 16px; font-size: 12px; }
 }
 
 /* --- CONTACT PAGE --- */
@@ -616,6 +665,17 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
       <input class="modal-input" type="text" id="quoteContact">
       <button class="modal-submit" onclick="submitQuote()">Submit</button>
     </div>
+  </div>
+</div>
+
+<!-- ACCESSORY IMAGE PREVIEW -->
+<div class="accessory-preview-overlay" id="accessoryPreview" onclick="handleAccessoryPreviewBackdrop(event)">
+  <div class="accessory-preview-box" role="dialog" aria-modal="true" aria-labelledby="accessoryPreviewTitle">
+    <button class="accessory-preview-close" type="button" onclick="closeAccessoryPreview()" aria-label="Close image preview">&times;</button>
+    <div class="accessory-preview-image-stage">
+      <img class="accessory-preview-image" id="accessoryPreviewImage" src="" alt="">
+    </div>
+    <div class="accessory-preview-caption" id="accessoryPreviewTitle"></div>
   </div>
 </div>
 
@@ -1015,6 +1075,43 @@ function sendAccessoryQuery(index) {
   window.open(url, '_blank', 'noopener');
 }
 
+function openAccessoryPreview(index) {
+  const accessory = ACCESSORIES[index];
+  if (!accessory) return;
+
+  const preview = document.getElementById('accessoryPreview');
+  const image = document.getElementById('accessoryPreviewImage');
+  const title = document.getElementById('accessoryPreviewTitle');
+
+  image.src = accessory.image;
+  image.alt = accessory.name;
+  title.textContent = accessory.name;
+  preview.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAccessoryPreview() {
+  const preview = document.getElementById('accessoryPreview');
+  const image = document.getElementById('accessoryPreviewImage');
+
+  preview.classList.remove('open');
+  image.src = '';
+  image.alt = '';
+  document.body.style.overflow = '';
+}
+
+function handleAccessoryPreviewBackdrop(event) {
+  if (event.target === document.getElementById('accessoryPreview')) {
+    closeAccessoryPreview();
+  }
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && document.getElementById('accessoryPreview').classList.contains('open')) {
+    closeAccessoryPreview();
+  }
+});
+
 // --- BUILD GRIDS ---
 function buildGrids() {
   // Stats
@@ -1050,9 +1147,9 @@ function buildGrids() {
   const aG = document.getElementById('accessoriesGrid');
   aG.innerHTML = ACCESSORIES.map((a, i) => `
     <article class="accessory-card" data-observe data-delay="${(i % 8) * 0.05}">
-      <div class="accessory-image-wrap">
+      <button class="accessory-image-wrap" type="button" onclick="openAccessoryPreview(${i})" aria-label="View larger image of ${escapeHtml(a.name)}">
         <img class="accessory-image" src="${escapeHtml(a.image)}" alt="${escapeHtml(a.name)}" loading="lazy">
-      </div>
+      </button>
       <div class="accessory-info">
         <h3>${escapeHtml(a.name)}</h3>
         <p>Accessories Collection</p>
