@@ -417,25 +417,66 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
 }
 .accessories-grid {
   max-width: 1400px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px;
 }
 .accessory-card {
-  padding: 40px 32px;
-  border: 1px solid rgba(201,169,110,0.08);
-  transition: all 0.3s; cursor: pointer;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+  border: 1px solid rgba(201,169,110,0.12);
+  transition: all 0.35s ease; overflow: hidden;
+  opacity: 0; transform: translateY(28px);
 }
-.accessory-card:nth-child(odd) {
-  background: linear-gradient(165deg, rgba(201,169,110,0.06), transparent);
+.accessory-card.visible { opacity: 1; transform: translateY(0); }
+.accessory-card:hover {
+  border-color: rgba(201,169,110,0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.28);
 }
-.accessory-card:nth-child(even) { background: rgba(255,255,255,0.02); }
-.accessory-card:hover { border-color: rgba(201,169,110,0.3); }
+.accessory-image-wrap {
+  height: 240px; background: #f6f4ef;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid rgba(201,169,110,0.16);
+}
+.accessory-image {
+  width: 100%; height: 100%; object-fit: contain;
+  padding: 22px; display: block;
+}
+.accessory-info {
+  min-height: 160px; padding: 24px 20px 20px;
+  display: flex; flex-direction: column; gap: 16px;
+}
 .accessory-card h3 {
-  font-family: 'Playfair Display', serif; font-size: 20px;
-  color: #f5f0e8; font-weight: 400; margin-bottom: 10px;
+  font-family: 'Outfit', sans-serif; font-size: 13px;
+  color: #f5f0e8; font-weight: 500; line-height: 1.45;
+  text-transform: uppercase; min-height: 38px;
 }
 .accessory-card p {
   color: #777; font-family: 'Outfit', sans-serif;
-  font-size: 13px; line-height: 1.7;
+  font-size: 12px; text-transform: uppercase;
+}
+.accessory-query {
+  margin-top: auto; width: 100%; min-height: 42px;
+  background: transparent; color: #c9a96e;
+  border: 1px solid rgba(201,169,110,0.42);
+  font-family: 'Outfit', sans-serif; font-size: 11px;
+  text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s;
+}
+.accessory-query:hover {
+  background: #c9a96e; color: #0a0a0a;
+  border-color: #c9a96e;
+}
+.accessory-query:focus-visible {
+  outline: 2px solid #c9a96e; outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .accessories-section { padding-left: 18px; padding-right: 18px; }
+  .accessories-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+  .accessory-image-wrap { height: 170px; }
+  .accessory-image { padding: 14px; }
+  .accessory-info { min-height: 150px; padding: 18px 14px 14px; gap: 12px; }
+  .accessory-card h3 { font-size: 11px; min-height: 48px; }
+  .accessory-query { min-height: 40px; font-size: 10px; }
 }
 
 /* --- CONTACT PAGE --- */
@@ -753,13 +794,81 @@ const PRODUCTS = [
   { name: "Entertainment", icon: "🎬", desc: "Immersive media rooms and entertainment zones" },
 ];
 
+const WHATSAPP_QUERY_NUMBER = "91707247978";
+
 const ACCESSORIES = [
-  { name: "Lighting", desc: "Chandeliers, pendants & ambient lighting solutions" },
-  { name: "Curtains & Blinds", desc: "Premium window treatments for every room" },
-  { name: "Wall Art & Mirrors", desc: "Statement pieces that transform walls" },
-  { name: "Rugs & Carpets", desc: "Handcrafted floor coverings in luxury materials" },
-  { name: "Cushions & Throws", desc: "Textured accents for layered comfort" },
-  { name: "Vases & Decor", desc: "Curated decorative objects for finishing touches" },
+  { name: "Wicker Basket", image: "accessories/Wicker Basket.webp" },
+  { name: "Vertical Manual Bed", image: "accessories/Vertical Manual Bed.PNG" },
+  { name: "Vegetable Basket", image: "accessories/Vegetable Basket.webp" },
+  { name: "Universal Magic Corner", image: "accessories/Universal Magic Corner.webp" },
+  { name: "Undermount Slides for Wire Basket", image: "accessories/Undermount Slides for Wire Basket.webp" },
+  { name: "Undermount Slides for Drawer Movement", image: "accessories/Undermount Slides for Drawer Movement.webp" },
+  { name: "Ultra Heavy Duty Bi-Fold Lift-up", image: "accessories/Ultra Heavy Duty Bi-Fold Lift-up.webp" },
+  { name: "Top Glide System - 1 for Double", image: "accessories/TOP GLIDE SYSTEM - 1 for double.PNG" },
+  { name: "Thali Insert for Basket Height 200mm", image: "accessories/Thali Insert for Basket Height 200mm.webp" },
+  { name: "Thali Basket", image: "accessories/Thali Basket.webp" },
+  { name: "Telescopic Pull-out", image: "accessories/Telescopic Pull-out.webp" },
+  { name: "Table Brackets", image: "accessories/Table Brackets.webp" },
+  { name: "Swivel Waste Bin", image: "accessories/Swivel Waste Bin.webp" },
+  { name: "Swivel Shoe Rack", image: "accessories/Swivel Shoe Rack.webp" },
+  { name: "Swivel Bed Mechanism", image: "accessories/SWIVEL BED Mechanism.PNG" },
+  { name: "SS Dish Rack", image: "accessories/SS Dish Rack.webp" },
+  { name: "SS 304 Full Extension Ball Bearing Slides", image: "accessories/SS 304 Full Extension Ball Bearing Slides.webp" },
+  { name: "Square MP MP Lock-32MM", image: "accessories/Square MP MP Lock-32MM.webp" },
+  { name: "Soft Close 35 Kg Drawer Slides", image: "accessories/Soft Close 35 Kg Drawer Slides.webp" },
+  { name: "Slim Pro Ergotec Glass with LED Drawer System", image: "accessories/Slim Pro Ergotec Glass with LED Drawer System.webp" },
+  { name: "Slim Pro Ergotec Drawer System", image: "accessories/Slim Pro Ergotec Drawer System.webp" },
+  { name: "S Carousel", image: "accessories/S Carousel.webp" },
+  { name: "Roller Shutter", image: "accessories/Roller Shutter.webp" },
+  { name: "Rectangle Tube & Wall Bracket", image: "accessories/Rectangle Tube & Wall  Bracket.PNG" },
+  { name: "Rattan Basket Breathable", image: "accessories/Rattan Basket Breathable.webp" },
+  { name: "Rail-Square with Full-Extension", image: "accessories/Rail-Square with Full-Extension.webp" },
+  { name: "PVC Skirting", image: "accessories/PVC Skirting.webp" },
+  { name: "PVC Cutlery Tray", image: "accessories/PVC Cutlery Tray.webp" },
+  { name: "Pull-Out Waste Bin", image: "accessories/Pull-Out Waste Bin.webp" },
+  { name: "Pull-Out Waste 3-Bin", image: "accessories/Pull-Out Waste 3-Bin.webp" },
+  { name: "Pull-Out Trouser Rack", image: "accessories/Pull-Out Trouser Rack.webp" },
+  { name: "Pull-Out Shoe Rack", image: "accessories/Pull-Out Shoe Rack.webp" },
+  { name: "Pull-Out Hanger-Single", image: "accessories/Pull-Out Hanger-Single.webp" },
+  { name: "Plate Insert for Basket Height 200mm", image: "accessories/Plate Insert for basket height 200mm.webp" },
+  { name: "Plate Basket", image: "accessories/PLATE BASKET.webp" },
+  { name: "Plain Basket", image: "accessories/Plain Basket.webp" },
+  { name: "Pie Corner Hinge with 2 & 4 Hole MP", image: "accessories/Pie Corner hinge with 2  & 4 Hole MP.webp" },
+  { name: "Perforated Cutlery Basket", image: "accessories/PERFORATED CUTLERY BASKET.webp" },
+  { name: "Ozoline Plus Sliding System", image: "accessories/Ozoline Plus Sliding System.PNG" },
+  { name: "One Touch Sliding Folding System", image: "accessories/One Touch Sliding Folding System.webp" },
+  { name: "Multi-Functional Pull-Out 300 & 450MM", image: "accessories/Multi-Functional Pull-Out 300 & 450MM.webp" },
+  { name: "Magnetic Push Catcher", image: "accessories/Magnetic Push Catcher.jpg" },
+  { name: "Linear Movable Platform", image: "accessories/Linear Movable Platform.webp" },
+  { name: "Lift-Up Stay System", image: "accessories/Lift-Up Stay System.webp" },
+  { name: "LED C Gola Profile", image: "accessories/LED C Gola Profile.webp" },
+  { name: "Laundry Basket", image: "accessories/Laundry Basket.webp" },
+  { name: "Kitchen Tall Unit-Frame", image: "accessories/Kitchen Tall Unit-Frame.webp" },
+  { name: "Horizontal Motorized Bed Mechanism", image: "accessories/Horizontal Motorized Bed Mechanism.PNG" },
+  { name: "Hinge with 2 Hole Mounting Plate", image: "accessories/HINGE WITH 2 HOLE MOUNTING PLATE.jpg" },
+  { name: "Hanger Pull-Down", image: "accessories/Hanger Pull-Down.webp" },
+  { name: "Half Partition Insert for Basket", image: "accessories/Half Partition Insert for Basket.webp" },
+  { name: "Grain Trolley Basket", image: "accessories/Grain Trolley Basket.webp" },
+  { name: "Glass Shelf Support", image: "accessories/Glass Shelf Support.webp" },
+  { name: "Glass Basket Kitchen Tall Unit", image: "accessories/Glass Basket Kitchen Tall Unit.webp" },
+  { name: "Electronic Glass Shelf Elevator", image: "accessories/Electronic Glass Shelf Elevator.webp" },
+  { name: "E-Series Auto Close Screw-On Hinge with 4 Hole Mounting Plate", image: "accessories/E-Series Auto Close Screw-On Hinge with 4 Hole Mounting Plate.webp" },
+  { name: "Drawer Lock", image: "accessories/Drawer Lock.webp" },
+  { name: "Dish Rack", image: "accessories/Dish Rack.webp" },
+  { name: "Detergent Holder", image: "accessories/Detergent Holder.jpg" },
+  { name: "Cylinder Trolley", image: "accessories/Cylinder Trolley.jpg" },
+  { name: "Curve Profile", image: "accessories/Curve Profile.webp" },
+  { name: "Cup & Saucer Basket-150mm", image: "accessories/Cup & Saucer Basket-150mm.webp" },
+  { name: "Clip-On Wide Angle Hinge with 2 Hole MP", image: "accessories/Clip-On Wide Angle Hinge with 2 Hole MP.webp" },
+  { name: "Clip-On 3D Hinge with 3-Hole Mounting Plate", image: "accessories/Clip-On 3D Hinge with 3-Hole Mounting Plate.webp" },
+  { name: "Cabinet Legs With Clip", image: "accessories/Cabinet Legs With Clip.webp" },
+  { name: "Cabinet Connector", image: "accessories/Cabinet Connector.webp" },
+  { name: "Bottle Pull-out", image: "accessories/Bottle Pull-out.webp" },
+  { name: "Bottle Pull Out", image: "accessories/Bottle Pull Out.webp" },
+  { name: "Blind Corner Hinge", image: "accessories/Blind Corner Hinge.webp" },
+  { name: "Bin Holder", image: "accessories/Bin Holder.webp" },
+  { name: "Adjustable Dish Organizer", image: "accessories/Adjustable Dish Organizer.webp" },
+  { name: "2D Clip-On Soft Close Hinge-SS", image: "accessories/2D Clip-On Soft Close Hinge-SS.jpg" },
 ];
 
 const TESTIMONIALS = [
@@ -880,6 +989,32 @@ function submitQuote() {
 }
 document.getElementById('quoteModal').addEventListener('click', (e) => { if (e.target === document.getElementById('quoteModal')) closeModal(); });
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function sendAccessoryQuery(index) {
+  const accessory = ACCESSORIES[index];
+  if (!accessory) return;
+
+  const message = [
+    "Hi d3Studio, I would like to enquire about this accessory.",
+    "",
+    `Product: ${accessory.name}`,
+    "Collection: Accessories",
+    `Image reference: ${accessory.image}`
+  ].join("\n");
+
+  const url = `https://wa.me/${WHATSAPP_QUERY_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank', 'noopener');
+}
+
 // --- BUILD GRIDS ---
 function buildGrids() {
   // Stats
@@ -913,7 +1048,18 @@ function buildGrids() {
 
   // Accessories
   const aG = document.getElementById('accessoriesGrid');
-  aG.innerHTML = ACCESSORIES.map(a => `<div class="accessory-card"><h3>${a.name}</h3><p>${a.desc}</p></div>`).join('');
+  aG.innerHTML = ACCESSORIES.map((a, i) => `
+    <article class="accessory-card" data-observe data-delay="${(i % 8) * 0.05}">
+      <div class="accessory-image-wrap">
+        <img class="accessory-image" src="${escapeHtml(a.image)}" alt="${escapeHtml(a.name)}" loading="lazy">
+      </div>
+      <div class="accessory-info">
+        <h3>${escapeHtml(a.name)}</h3>
+        <p>Accessories Collection</p>
+        <button class="accessory-query" type="button" onclick="sendAccessoryQuery(${i})">Send Query</button>
+      </div>
+    </article>
+  `).join('');
 }
 
 // --- INTERSECTION OBSERVER ---
