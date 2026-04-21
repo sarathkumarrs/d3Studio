@@ -128,7 +128,15 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   font-size: 15px; padding: 8px 0; outline: none;
   transition: border-color 0.3s; margin-bottom: 24px;
 }
+.modal-textarea {
+  min-height: 96px;
+  resize: vertical;
+  border: 1px solid rgba(201,169,110,0.3);
+  padding: 14px 16px;
+  margin-top: 4px;
+}
 .modal-input:focus { border-bottom-color: #c9a96e; }
+.modal-textarea:focus { border-color: #c9a96e; }
 .modal-submit {
   width: 100%; padding: 16px;
   background: linear-gradient(135deg, #c9a96e, #a8884d);
@@ -459,31 +467,68 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   font-size: 14px; line-height: 1.6;
 }
 
-/* --- TEAM --- */
-.team-section {
+/* --- FOUNDER --- */
+.founder-section {
   padding: 80px clamp(24px, 5vw, 80px);
   background: #0f0f0f; border-top: 1px solid rgba(201,169,110,0.08);
 }
-.team-grid {
+.founder-grid {
   max-width: 1400px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;
+  display: grid; grid-template-columns: minmax(280px, 420px) minmax(320px, 1fr);
+  gap: clamp(28px, 4vw, 64px); align-items: center;
 }
-.team-member { text-align: center; }
-.team-avatar {
-  width: 100px; height: 100px; border-radius: 50%;
-  background: linear-gradient(135deg, rgba(201,169,110,0.2), rgba(201,169,110,0.05));
-  border: 1px solid rgba(201,169,110,0.2);
+.founder-photo {
+  min-height: 460px;
+  background: linear-gradient(165deg, rgba(201,169,110,0.12), rgba(201,169,110,0.03));
+  border: 1px solid rgba(201,169,110,0.18);
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px; font-family: 'Playfair Display', serif;
-  font-size: 24px; color: #c9a96e;
+  overflow: hidden;
 }
-.team-member h4 {
-  font-family: 'Playfair Display', serif; font-size: 18px;
-  color: #f5f0e8; font-weight: 400; margin-bottom: 4px;
+.founder-photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
 }
-.team-member p {
-  color: #888; font-family: 'Outfit', sans-serif;
-  font-size: 12px; letter-spacing: 1px;
+.founder-photo-placeholder {
+  padding: 28px;
+  text-align: center;
+  color: #c9a96e;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.founder-copy {
+  padding: clamp(18px, 2vw, 28px) 0;
+}
+.founder-role {
+  color: #c9a96e;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.founder-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.05;
+  color: #f5f0e8;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+.founder-bio {
+  color: #a4a4a4;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  max-width: 720px;
+}
+.founder-bio p + p {
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .founder-grid { grid-template-columns: 1fr; }
+  .founder-photo { min-height: 360px; }
 }
 
 /* --- PORTFOLIO PAGE --- */
@@ -830,18 +875,20 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
     <button class="modal-close" onclick="closeModal()">×</button>
     <div class="modal-success" id="modalSuccess">
       <div class="check">✓</div>
-      <h3>Thank You!</h3>
-      <p>We'll get back to you shortly.</p>
+      <h3>Opening WhatsApp</h3>
+      <p>Your quote details have been prefilled.</p>
     </div>
     <div class="modal-form-fields" id="modalForm">
       <p class="modal-sub">Free Consultation</p>
       <h2 class="modal-title">Get a Free Quote</h2>
       <label class="modal-label">Name</label>
-      <input class="modal-input" type="text" id="quoteName">
+      <input class="modal-input" type="text" id="quoteName" required>
       <label class="modal-label">Email</label>
       <input class="modal-input" type="email" id="quoteEmail">
       <label class="modal-label">Contact No.</label>
-      <input class="modal-input" type="text" id="quoteContact">
+      <input class="modal-input" type="text" id="quoteContact" required>
+      <label class="modal-label">Project Details</label>
+      <textarea class="modal-input modal-textarea" id="quoteDetails" placeholder="Tell us about your space, style, or requirement"></textarea>
       <button class="modal-submit" onclick="submitQuote()">Submit</button>
     </div>
   </div>
@@ -921,7 +968,7 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
       <div class="section-title"><p class="sub">Our Story</p><h2>About d3Studio</h2><div class="line"></div></div>
       <div class="about-grid">
         <div class="about-text">
-          <p>Founded in 2014, d3Studio has been at the forefront of interior design innovation in Kerala. We believe that every space has the potential to inspire, comfort, and delight. Our team of passionate designers and skilled craftsmen work together to create interiors that are not just visually stunning but also deeply functional.</p>
+          <p>Founded in 2020, d3Studio has been at the forefront of interior design innovation in Kerala. We believe that every space has the potential to inspire, comfort, and delight. Our team of passionate designers and skilled craftsmen work together to create interiors that are not just visually stunning but also deeply functional.</p>
           <p>With over 500 projects delivered across Kerala, we've earned the trust of homeowners who demand nothing less than excellence. Our 10-year warranty and lifetime service support aren't just promises — they're our commitment to enduring quality.</p>
         </div>
         <div class="values-box">
@@ -934,10 +981,10 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
       </div>
     </div>
   </section>
-  <section class="team-section">
+  <section class="founder-section">
     <div style="max-width:1400px;margin:0 auto">
-      <div class="section-title"><p class="sub">The Team</p><h2>Meet Our Designers</h2><div class="line"></div></div>
-      <div class="team-grid" id="teamGrid"></div>
+      <div class="section-title"><p class="sub">The Founder</p><h2>Meet our Founder</h2><div class="line"></div></div>
+      <div class="founder-grid" id="founderCard"></div>
     </div>
   </section>
 </div>
@@ -972,7 +1019,6 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
       <div class="contact-grid">
         <div>
           <div class="contact-item"><span class="icon">📍</span><div><h4>Visit Our Showroom</h4><p>Kaliyil Building, Chengamad Kadakkal Road<br>Chunda, Kollam, PO 691306</p></div></div>
-          <div class="contact-item"><span class="icon">👤</span><div><h4>Contact Person</h4><p>BS Muhammed Sha<br>Chief AR Design & Operations Manager</p></div></div>
           <div class="contact-item"><span class="icon">📞</span><div><h4>Call Us</h4><p>+91 7907247978<br>+91 7558763651</p></div></div>
           <div class="contact-item"><span class="icon">✉️</span><div><h4>Email</h4><p>designstudio.d3saleschunda@gmail.com</p></div></div>
           <div class="contact-item"><span class="icon">✓</span><div><h4>Authorised Dealer</h4><p>Ozone Overseas Private Limited</p></div></div>
@@ -984,11 +1030,11 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
         </div>
         <div class="contact-form-box">
           <h3>Send Us a Message</h3>
-          <label>Full Name</label><input type="text">
-          <label>Email Address</label><input type="email">
-          <label>Phone Number</label><input type="tel">
-          <label>Message</label><textarea rows="4"></textarea>
-          <button class="contact-submit">Send Message</button>
+          <label>Full Name</label><input type="text" id="contactName">
+          <label>Email Address</label><input type="email" id="contactEmail">
+          <label>Phone Number</label><input type="tel" id="contactPhone">
+          <label>Message</label><textarea rows="4" id="contactMessage"></textarea>
+          <button class="contact-submit" onclick="submitContactForm()">Send Message</button>
         </div>
       </div>
     </div>
@@ -1030,25 +1076,25 @@ const PRODUCTS = [
 ];
 
 const PORTFOLIO_ITEMS = [
-  { title: "Project 01", category: "Living Media Wall", image: "portfolio/1.2.png", featured: true },
-  { title: "Project 01", category: "Living Composition", image: "portfolio/1.3.png" },
-  { title: "Project 01", category: "Detail View", image: "portfolio/1.png" },
-  { title: "Project 02", category: "Bedroom Suite", image: "portfolio/2.1.jpg", featured: true },
-  { title: "Project 03", category: "Kitchen Planning", image: "portfolio/3.1.jpg" },
-  { title: "Project 03", category: "Kitchen Detail", image: "portfolio/3.2.jpg" },
-  { title: "Project 04", category: "Dining Interior", image: "portfolio/4.1.jpg" },
-  { title: "Project 04", category: "Dining Detail", image: "portfolio/4.2.jpg", featured: true },
-  { title: "Project 05", category: "Bedroom Storage", image: "portfolio/5.1.jpg" },
-  { title: "Project 05", category: "Bedroom Detail", image: "portfolio/5.2.jpg" },
-  { title: "Project 06", category: "Modular Kitchen", image: "portfolio/6.1.jpg", featured: true },
-  { title: "Project 06", category: "Kitchen Detail", image: "portfolio/6.2.jpg" },
-  { title: "Project 07", category: "Wardrobe Suite", image: "portfolio/7.1.jpg" },
-  { title: "Project 07", category: "Wardrobe Detail", image: "portfolio/7.2.jpg" },
-  { title: "Project 07", category: "Storage View", image: "portfolio/7.3.jpg" },
-  { title: "Project 07", category: "Material Detail", image: "portfolio/7.4.jpg" },
-  { title: "Project 07", category: "Detail Closeup", image: "portfolio/7.5.jpg" },
-  { title: "Project 08", category: "Living Interior", image: "portfolio/8.1.jpg", featured: true },
-  { title: "Project 08", category: "Living Detail", image: "portfolio/8.2.jpg" },
+  { title: "Home-Interior", category: "Living Media Wall", image: "portfolio/1.2.png", featured: true },
+  { title: "Home-Interior", category: "Living Composition", image: "portfolio/1.3.png" },
+  { title: "Home-Interior", category: "Detail View", image: "portfolio/1.png" },
+  { title: "Bedroom", category: "Bedroom Suite", image: "portfolio/2.1.jpg", featured: true },
+  { title: "Exterior 3D", category: "Elevation", image: "portfolio/3.1.jpg" },
+  { title: "Exterior 3D", category: "Elevation", image: "portfolio/3.2.jpg" },
+  { title: "Grocery Store Interior", category: "Main Entrance View", image: "portfolio/4.1.jpg" },
+  { title: "Grocery Store Interior", category: "Alternate View", image: "portfolio/4.2.jpg", featured: true },
+  { title: "3D Sketch Exterior", category: "Residential", image: "portfolio/5.1.jpg" },
+  { title: "3D Sketch Exterior", category: "Residential", image: "portfolio/5.2.jpg" },
+  { title: "Grocery Store Exterior", category: "Front View", image: "portfolio/6.1.jpg", featured: true },
+  { title: "Grocery Store Exterior", category: "Front View", image: "portfolio/6.2.jpg" },
+  { title: "4BHK Interior Design", category: "MASTER BEDROOM DESIGN", image: "portfolio/7.1.jpg" },
+  { title: "4BHK Interior Design", category: "Wardrobe Detail", image: "portfolio/7.2.jpg" },
+  { title: "4BHK Interior Design", category: "Storage View", image: "portfolio/7.3.jpg" },
+  { title: "4BHK Interior Design", category: "Material Detail", image: "portfolio/7.4.jpg" },
+  { title: "4BHK Interior Design", category: "Detail Closeup", image: "portfolio/7.5.jpg" },
+  { title: "Cafe Interior", category: "Main View", image: "portfolio/8.1.jpg", featured: true },
+  { title: "Cafe Interior", category: "Side View", image: "portfolio/8.2.jpg" },
   { title: "Project 09", category: "Exterior Elevation", image: "portfolio/9.1.jpg", featured: true },
   { title: "Project 09", category: "Facade Detail", image: "portfolio/9.2.jpg" },
   { title: "Project 10", category: "Residential Facade", image: "portfolio/10.1.jpg" },
@@ -1134,10 +1180,11 @@ const ACCESSORIES = [
 ];
 
 const TESTIMONIALS = [
-  { name: "Priya Menon", location: "Kochi", text: "d3Studio transformed our home beyond imagination. The attention to detail and quality of materials used is exceptional. Our modular kitchen is both beautiful and incredibly functional.", rating: 5, initials: "PM" },
-  { name: "Rahul Sharma", location: "Calicut", text: "From the first consultation to the final handover, the experience was seamless. The team understood our vision perfectly and delivered a space that feels truly luxurious.", rating: 5, initials: "RS" },
-  { name: "Anjali & Vivek", location: "Trivandrum", text: "We renovated our entire 3BHK with d3Studio and couldn't be happier. The 10-year warranty gave us complete peace of mind. Highly recommend their bedroom collection!", rating: 5, initials: "AV" },
-  { name: "Dr. Faizal Khan", location: "Kannur", text: "The home office they designed for me is a masterpiece. Clean lines, smart storage, and beautiful wood finishes. My productivity has genuinely improved since the redesign.", rating: 4, initials: "FK" },
+  { name: "Divya Ajith", location: "", text: "Really happy with D3 interior design! Mr muhammed Sha, hes super calm, a great listener, and always made sure our ideas and concerns were heard. Very pleasant to work with and down to earth. Loved how everything turned out totally satisfied with his work!", rating: 5, initials: "DA" },
+  { name: "Afsal Shaji", location: "", text: "Outstanding service and exceptional design expertise! We hired D3 interior & Architecture Design studio to redesign our living and office spaces, and the results exceeded our expectations. Their team understood our vision and translated it into a functional and aesthetic design that perfectly fits our lifestyle and needs. From the initial consultation to the final installation, their professionalism, creativity, and attention to detail were truly impressive. We highly recommend D3 interior & Architecture Design studio to anyone seeking high-quality, personalized interior design solutions.", rating: 5, initials: "AS" },
+  { name: "Salim Ansari", location: "", text: "Im very pleased with the outcome. From the initial consultation to the final touches, the team was professional, attentive to detail, and committed to delivering quality. I would highly recommend to anyone looking for reliable and stylish interior design and execution. They brought creativity and professionalism to the table and transformed the space beyond my expectations..", rating: 5, initials: "SA" },
+  { name: "Muhammad Afzal N", location: "", text: "Absolutely love the work this company did for my kitchen design and living room. Their modular kitchen designs are sleek, modern, and functional. Plus, the overall home decor and layout are spot on. Very reliable and creative interior designers. Worth every penny", rating: 5, initials: "MA" },
+  { name: "Ajmal Aj", location: "", text: "Fabulous creations in Doing Interiors as well as Their space planning ideas are very extraordinary in ..they always set out of newer modes of fittings , harwares and color themes according to the space and area . Any way congrats to team d3 studio and also happy to hear for their new journey to be as a distributor of Ozone Overseas pvt ltd kitchen hardwares and accessories. Thank you all", rating: 5, initials: "AA" },
 ];
 
 const STATS = [
@@ -1147,12 +1194,16 @@ const STATS = [
   { number: "3", label: "Showrooms" },
 ];
 
-const TEAM = [
-  { name: "Arjun Krishnan", role: "Founder & Lead Designer", initials: "AK" },
-  { name: "Meera Nair", role: "Senior Interior Architect", initials: "MN" },
-  { name: "Siddharth Das", role: "Product Design Head", initials: "SD" },
-  { name: "Lakshmi Raj", role: "Client Relations Director", initials: "LR" },
-];
+const FOUNDER = {
+  name: "B S Muhammed Sha",
+  role: "Founder & Operations Manager, d3Studio",
+  image: "muhammed_Sh_d3Studio.jpeg",
+  imageAlt: "B S Muhammed Sha portrait",
+  bio: [
+    "Mr. Muhammed Sha, Founder & Operations Manager of d3Studio from Kaliyilil Homes, brings 7 years of experience in the interior and architecture industry, making a strong impact across the UAE and Kerala.",
+    "He previously worked as a Designer and Sales Specialist at Sleek by Asian Paints Pvt. Ltd. and served as Project Manager at Agnikone Kitchens and Interiors."
+  ]
+};
 
 // --- STATE ---
 let currentPage = "HOME";
@@ -1204,10 +1255,26 @@ function closeModal() {
   document.getElementById('modalSuccess').classList.remove('show');
 }
 function submitQuote() {
-  const n = document.getElementById('quoteName').value;
-  const e = document.getElementById('quoteEmail').value;
-  const c = document.getElementById('quoteContact').value;
-  if (n && e && c) {
+  const n = document.getElementById('quoteName').value.trim();
+  const e = document.getElementById('quoteEmail').value.trim();
+  const c = document.getElementById('quoteContact').value.trim();
+  const d = document.getElementById('quoteDetails').value.trim();
+  const activePage = document.querySelector('.page.active')?.id?.replace('page-', '') || 'HOME';
+
+  if (n && c) {
+    const message = [
+      "Hi d3Studio, I would like to get a free quote.",
+      "",
+      `Name: ${n}`,
+      `Email: ${e || 'Not provided'}`,
+      `Contact No: ${c}`,
+      `Page: ${activePage}`,
+      `Project Details: ${d || 'Not provided'}`
+    ].join("\n");
+
+    const url = `https://wa.me/${WHATSAPP_QUERY_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener');
+
     document.getElementById('modalForm').classList.add('hide');
     document.getElementById('modalSuccess').classList.add('show');
     setTimeout(() => {
@@ -1215,7 +1282,34 @@ function submitQuote() {
       document.getElementById('quoteName').value = '';
       document.getElementById('quoteEmail').value = '';
       document.getElementById('quoteContact').value = '';
+      document.getElementById('quoteDetails').value = '';
     }, 2000);
+  }
+}
+
+function submitContactForm() {
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const phone = document.getElementById('contactPhone').value.trim();
+  const messageText = document.getElementById('contactMessage').value.trim();
+
+  if (name && (phone || email) && messageText) {
+    const message = [
+      "Hi d3Studio, I would like to contact you.",
+      "",
+      `Name: ${name}`,
+      `Email: ${email || 'Not provided'}`,
+      `Phone: ${phone || 'Not provided'}`,
+      `Message: ${messageText}`
+    ].join("\n");
+
+    const url = `https://wa.me/${WHATSAPP_QUERY_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener');
+
+    document.getElementById('contactName').value = '';
+    document.getElementById('contactEmail').value = '';
+    document.getElementById('contactPhone').value = '';
+    document.getElementById('contactMessage').value = '';
   }
 }
 document.getElementById('quoteModal').addEventListener('click', (e) => { if (e.target === document.getElementById('quoteModal')) closeModal(); });
@@ -1316,14 +1410,25 @@ function buildGrids() {
       <p class="testimonial-text">"${t.text}"</p>
       <div class="testimonial-author">
         <div class="testimonial-avatar">${t.initials}</div>
-        <div><div class="testimonial-name">${t.name}</div><div class="testimonial-loc">${t.location}</div></div>
+        <div><div class="testimonial-name">${t.name}</div>${t.location ? `<div class="testimonial-loc">${t.location}</div>` : ''}</div>
       </div>
     </div>
   `).join('');
 
-  // Team
-  const tmG = document.getElementById('teamGrid');
-  tmG.innerHTML = TEAM.map(m => `<div class="team-member"><div class="team-avatar">${m.initials}</div><h4>${m.name}</h4><p>${m.role}</p></div>`).join('');
+  // Founder
+  const founderCard = document.getElementById('founderCard');
+  founderCard.innerHTML = `
+    <div class="founder-photo" data-observe>
+      ${FOUNDER.image
+        ? `<img src="${escapeHtml(FOUNDER.image)}" alt="${escapeHtml(FOUNDER.imageAlt || FOUNDER.name)}" loading="lazy" decoding="async">`
+        : `<div class="founder-photo-placeholder">Add founder photo here</div>`}
+    </div>
+    <div class="founder-copy" data-observe data-delay="0.1">
+      <div class="founder-role">${escapeHtml(FOUNDER.role)}</div>
+      <h3 class="founder-name">${escapeHtml(FOUNDER.name)}</h3>
+      <div class="founder-bio">${FOUNDER.bio.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}</div>
+    </div>
+  `;
 
   // Products
   const pG = document.getElementById('productsGrid');
@@ -1337,7 +1442,7 @@ function buildGrids() {
           <h3>${escapeHtml(p.title)}</h3>
           <p>${escapeHtml(p.category)}</p>
         </div>
-        <div class="product-meta"><span>Portfolio</span><span>View Project</span></div>
+        <div class="product-meta"><span>Portfolio</span></div>
       </div>
     </article>
   `).join('');
