@@ -39,9 +39,9 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   background: #f5f0e8; border: 1px solid rgba(201,169,110,0.28);
   border-radius: 6px; padding: 7px 12px;
 }
-.logo-img { width: auto; height: 34px; display: block; object-fit: contain; }
+.logo-img { width: auto; height: 74px; display: block; object-fit: contain; }
 .navbar.scrolled .logo { padding: 6px 10px; }
-.navbar.scrolled .logo-img { height: 30px; }
+.navbar.scrolled .logo-img { height: 62px; }
 .nav-links { display: flex; align-items: center; gap: 36px; }
 .nav-link {
   background: none; border: none; color: #999; font-family: 'Outfit', sans-serif;
@@ -74,8 +74,8 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   .nav-links { display: none; }
   .mobile-menu-btn { display: block; }
   .logo { padding: 6px 10px; }
-  .logo-img { height: 30px; max-width: 170px; }
-  .navbar.scrolled .logo-img { height: 28px; }
+  .logo-img { height: 58px; max-width: 320px; }
+  .navbar.scrolled .logo-img { height: 52px; }
 }
 
 /* --- FLOATING QUOTE BTN --- */
@@ -634,6 +634,39 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   font-size: 16px; line-height: 1.8; text-align: center;
   max-width: 600px; margin: -24px auto 56px;
 }
+.accessories-toolbar {
+  max-width: 720px;
+  margin: -18px auto 38px;
+}
+.accessories-search {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,169,110,0.18);
+  color: #f5f0e8;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  outline: none;
+}
+.accessories-search::placeholder {
+  color: #777;
+}
+.accessories-search:focus {
+  border-color: rgba(201,169,110,0.55);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.08);
+}
+.accessories-empty {
+  grid-column: 1 / -1;
+  padding: 42px 24px;
+  border: 1px solid rgba(201,169,110,0.12);
+  text-align: center;
+  color: #999;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+}
 .accessories-grid {
   max-width: 1400px; margin: 0 auto;
   display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px;
@@ -696,6 +729,8 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
 
 @media (max-width: 640px) {
   .accessories-section { padding-left: 18px; padding-right: 18px; }
+  .accessories-toolbar { margin-bottom: 28px; }
+  .accessories-search { min-height: 50px; padding: 0 14px; font-size: 13px; }
   .accessories-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
   .accessory-image-wrap { height: 170px; }
   .accessory-image { padding: 14px; }
@@ -763,6 +798,46 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   color: #bbb; font-family: 'Outfit', sans-serif;
   font-size: 15px; line-height: 1.5;
 }
+.dealers-block { align-items: stretch; }
+.dealers-panel { flex: 1; }
+.dealers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+.dealer-card {
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(127,106,66,0.14);
+  padding: 14px;
+}
+.dealer-logo-wrap {
+  height: 88px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden;
+}
+.dealer-logo {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.dealer-name {
+  margin-top: 10px;
+  color: #1f1a14;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
 .social-links { display: flex; gap: 16px; margin-top: 40px; }
 .social-link {
   font-family: 'Outfit', sans-serif; font-size: 11px;
@@ -771,6 +846,11 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   text-decoration: none;
 }
 .social-link:hover { color: #c9a96e; }
+
+@media (max-width: 640px) {
+  .dealers-grid { grid-template-columns: 1fr; }
+  .dealer-logo-wrap { height: 82px; }
+}
 .contact-form-box {
   background: linear-gradient(165deg, rgba(201,169,110,0.06), rgba(201,169,110,0.01));
   border: 1px solid rgba(201,169,110,0.15); padding: 48px 40px;
@@ -845,6 +925,151 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
 .footer-bottom p {
   color: #444; font-family: 'Outfit', sans-serif;
   font-size: 12px; letter-spacing: 1px;
+}
+
+/* --- LIGHT THEME REFRESH --- */
+body {
+  background: #f3eee5;
+  color: #1f1a14;
+}
+::-webkit-scrollbar-track { background: #ebe4d8; }
+::-webkit-scrollbar-thumb { background: rgba(127,106,66,0.35); }
+::selection { background: rgba(127,106,66,0.18); color: #1f1a14; }
+
+.navbar.scrolled {
+  background: rgba(243,238,229,0.94);
+  border-bottom: 1px solid rgba(127,106,66,0.16);
+}
+.logo,
+.navbar.scrolled .logo {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+.nav-link,
+.mobile-menu-link {
+  color: #6b6254;
+}
+.nav-link:hover,
+.nav-link.active,
+.mobile-menu-link.active {
+  color: #7f6a42;
+}
+.mobile-menu {
+  background: rgba(243,238,229,0.98);
+  border-bottom: 1px solid rgba(127,106,66,0.14);
+}
+
+.modal-box {
+  background: linear-gradient(165deg, #f7f2ea 0%, #efe7da 100%);
+  border-color: rgba(127,106,66,0.18);
+}
+.modal-close,
+.modal-label,
+.modal-success p {
+  color: #6f675a;
+}
+.modal-title,
+.contact-form-box h3,
+.section-title h2,
+.service-card h3,
+.testimonial-name,
+.founder-name,
+.product-card h3,
+.contact-item p {
+  color: #1f1a14;
+}
+.modal-input,
+.contact-form-box input,
+.contact-form-box textarea {
+  color: #1f1a14;
+}
+
+.stats-section,
+.testimonials-section,
+.about-section,
+.products-section,
+.accessories-section,
+.contact-section {
+  background: #f3eee5;
+  border-top-color: rgba(127,106,66,0.08);
+  border-bottom-color: rgba(127,106,66,0.08);
+}
+.services-section,
+.founder-section {
+  background: #efe7da;
+}
+.cta-section {
+  background: linear-gradient(135deg, #eadfce, #f5efe6);
+}
+
+.stat-label,
+.testimonial-loc,
+.portfolio-desc,
+.accessories-desc,
+.contact-form-box label,
+.footer-link,
+.footer-brand p,
+.footer-contact,
+.footer-bottom p,
+.social-link,
+.about-text p:last-child,
+.value-item p,
+.founder-bio,
+.product-card p,
+.accessory-card p,
+.contact-item p,
+.cta-section p,
+.testimonial-text {
+  color: #6f675a;
+}
+.about-text p:first-child,
+.spotlight-note {
+  color: #4d463d;
+}
+
+.service-card,
+.testimonial-card,
+.values-box,
+.founder-photo,
+.product-card,
+.accessory-card,
+.contact-form-box {
+  background: rgba(255,255,255,0.58);
+  border-color: rgba(127,106,66,0.14);
+  box-shadow: 0 18px 50px rgba(84,67,41,0.06);
+}
+.service-card:hover,
+.product-card:hover,
+.accessory-card:hover {
+  border-color: rgba(127,106,66,0.28);
+}
+.product-image-wrap {
+  background: #e6ddd0;
+}
+.accessories-search {
+  background: rgba(255,255,255,0.62);
+  border-color: rgba(127,106,66,0.16);
+  color: #1f1a14;
+}
+.accessories-search::placeholder {
+  color: #867c6c;
+}
+.accessories-empty {
+  background: rgba(255,255,255,0.52);
+  border-color: rgba(127,106,66,0.14);
+  color: #6f675a;
+}
+.social-link {
+  border-bottom-color: rgba(127,106,66,0.22);
+}
+.site-footer {
+  background: #ece4d8;
+  border-top: 1px solid rgba(127,106,66,0.12);
+}
+.footer-bottom {
+  border-top-color: rgba(127,106,66,0.1);
 }
 
 /* --- PAGE VISIBILITY --- */
@@ -1006,6 +1231,9 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
     <div style="max-width:1400px;margin:0 auto">
       <div class="section-title"><p class="sub">The Finishing Touches</p><h2>Accessories</h2><div class="line"></div></div>
       <p class="accessories-desc">Carefully curated accessories that add character, warmth, and personality to your interiors.</p>
+      <div class="accessories-toolbar">
+        <input class="accessories-search" type="search" id="accessoriesSearch" placeholder="Search accessories by name" oninput="filterAccessories(this.value)" aria-label="Search accessories">
+      </div>
       <div class="accessories-grid" id="accessoriesGrid"></div>
     </div>
   </section>
@@ -1018,10 +1246,41 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
       <div class="section-title"><p class="sub">Get In Touch</p><h2>Contact Us</h2><div class="line"></div></div>
       <div class="contact-grid">
         <div>
-          <div class="contact-item"><span class="icon">📍</span><div><h4>Visit Our Showroom</h4><p>Kaliyil Building, Chengamad Kadakkal Road<br>Chunda, Kollam, PO 691306</p></div></div>
+          <div class="contact-item"><span class="icon">📍</span><div><h4>Visit Our Showroom</h4><p>IP 16/25 , 26 Kaliyil Building, Chengamad Kadakkal Road<br>Chunda, Kollam, PO 691306</p></div></div>
           <div class="contact-item"><span class="icon">📞</span><div><h4>Call Us</h4><p>+91 7907247978<br>+91 7558763651</p></div></div>
           <div class="contact-item"><span class="icon">✉️</span><div><h4>Email</h4><p>designstudio.d3saleschunda@gmail.com</p></div></div>
-          <div class="contact-item"><span class="icon">✓</span><div><h4>Authorised Dealer</h4><p>Ozone Overseas Private Limited</p></div></div>
+          <div class="contact-item dealers-block">
+            <span class="icon">✓</span>
+            <div class="dealers-panel">
+              <h4>Dealers Of</h4>
+              <div class="dealers-grid">
+                <div class="dealer-card">
+                  <div class="dealer-logo-wrap">
+                    <img class="dealer-logo" src="brands/Amulya.png" alt="Amulya Mica logo" loading="lazy" decoding="async">
+                  </div>
+                  <div class="dealer-name">Amulya Mica</div>
+                </div>
+                <div class="dealer-card">
+                  <div class="dealer-logo-wrap">
+                    <img class="dealer-logo" src="brands/greenlam.jpg" alt="Greenlam Industries logo" loading="lazy" decoding="async">
+                  </div>
+                  <div class="dealer-name">Greenlam Industries</div>
+                </div>
+                <div class="dealer-card">
+                  <div class="dealer-logo-wrap">
+                    <img class="dealer-logo" src="brands/peglar.png" alt="Peglar atwork logo" loading="lazy" decoding="async">
+                  </div>
+                  <div class="dealer-name">Peglar atwork</div>
+                </div>
+                <div class="dealer-card">
+                  <div class="dealer-logo-wrap">
+                    <img class="dealer-logo" src="brands/sleek by asian paints.jpeg" alt="Sleek by Asian Paints logo" loading="lazy" decoding="async">
+                  </div>
+                  <div class="dealer-name">Sleek by Asian Paints</div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="social-links">
             <a class="social-link">Instagram</a>
             <a class="social-link">Facebook</a>
@@ -1207,6 +1466,7 @@ const FOUNDER = {
 
 // --- STATE ---
 let currentPage = "HOME";
+let accessorySearchTerm = "";
 
 // --- NAV ---
 function buildNav() {
@@ -1386,6 +1646,39 @@ function handleAccessoryPreviewBackdrop(event) {
   }
 }
 
+function renderAccessories() {
+  const aG = document.getElementById('accessoriesGrid');
+  const query = accessorySearchTerm.toLowerCase();
+  const filteredAccessories = ACCESSORIES
+    .map((a, index) => ({ ...a, index }))
+    .filter(a => a.name.toLowerCase().includes(query));
+
+  if (!filteredAccessories.length) {
+    aG.innerHTML = `<div class="accessories-empty">No accessories found for "${escapeHtml(accessorySearchTerm)}".</div>`;
+    return;
+  }
+
+  aG.innerHTML = filteredAccessories.map((a, i) => `
+    <article class="accessory-card" data-observe data-delay="${(i % 8) * 0.05}">
+      <button class="accessory-image-wrap" type="button" onclick="openAccessoryPreview(${a.index})" aria-label="View larger image of ${escapeHtml(a.name)}">
+        <img class="accessory-image" src="${escapeHtml(a.image)}" alt="${escapeHtml(a.name)}" loading="lazy">
+      </button>
+      <div class="accessory-info">
+        <h3>${escapeHtml(a.name)}</h3>
+        <p>Accessories Collection</p>
+        <button class="accessory-query" type="button" onclick="sendAccessoryQuery(${a.index})">Send Query</button>
+      </div>
+    </article>
+  `).join('');
+
+  observeElements();
+}
+
+function filterAccessories(value) {
+  accessorySearchTerm = value.trim();
+  renderAccessories();
+}
+
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && document.getElementById('accessoryPreview').classList.contains('open')) {
     closeAccessoryPreview();
@@ -1448,19 +1741,7 @@ function buildGrids() {
   `).join('');
 
   // Accessories
-  const aG = document.getElementById('accessoriesGrid');
-  aG.innerHTML = ACCESSORIES.map((a, i) => `
-    <article class="accessory-card" data-observe data-delay="${(i % 8) * 0.05}">
-      <button class="accessory-image-wrap" type="button" onclick="openAccessoryPreview(${i})" aria-label="View larger image of ${escapeHtml(a.name)}">
-        <img class="accessory-image" src="${escapeHtml(a.image)}" alt="${escapeHtml(a.name)}" loading="lazy">
-      </button>
-      <div class="accessory-info">
-        <h3>${escapeHtml(a.name)}</h3>
-        <p>Accessories Collection</p>
-        <button class="accessory-query" type="button" onclick="sendAccessoryQuery(${i})">Send Query</button>
-      </div>
-    </article>
-  `).join('');
+  renderAccessories();
 }
 
 // --- INTERSECTION OBSERVER ---
