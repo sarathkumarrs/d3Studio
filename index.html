@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>d3Studio — Premium Interior Design</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -408,6 +410,11 @@ body { background: #0a0a0a; color: #f5f0e8; font-family: 'Outfit', sans-serif; o
   display: flex; align-items: center; justify-content: center;
   font-family: 'Outfit', sans-serif; font-size: 14px;
   font-weight: 600; color: #0a0a0a; flex-shrink: 0;
+  overflow: hidden;
+}
+.testimonial-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
 }
 .testimonial-name {
   color: #f5f0e8; font-family: 'Outfit', sans-serif;
@@ -1272,6 +1279,12 @@ body {
                 </div>
                 <div class="dealer-card">
                   <div class="dealer-logo-wrap">
+                    <img class="dealer-logo" src="brands/ozone.jpeg" alt="Ozone logo" loading="lazy" decoding="async">
+                  </div>
+                  <div class="dealer-name">Ozone</div>
+                </div>
+                <div class="dealer-card">
+                  <div class="dealer-logo-wrap">
                     <img class="dealer-logo" src="brands/peglar.png" alt="Peglar atwork logo" loading="lazy" decoding="async">
                   </div>
                   <div class="dealer-name">Peglar atwork</div>
@@ -1286,8 +1299,8 @@ body {
             </div>
           </div>
           <div class="social-links">
-            <a class="social-link">Instagram</a>
-            <a class="social-link">Facebook</a>
+            <a class="social-link" href="https://www.instagram.com/d3_interior_studio/" target="_blank" rel="noopener">Instagram</a>
+            <a class="social-link" href="https://www.facebook.com/profile.php?id=61574377772031" target="_blank" rel="noopener">Facebook</a>
             <a class="social-link" href="https://wa.me/917907247978" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
@@ -1443,9 +1456,9 @@ const ACCESSORIES = [
 ];
 
 const TESTIMONIALS = [
+  { name: "Salim Ansari", location: "", text: "Im very pleased with the outcome. From the initial consultation to the final touches, the team was professional, attentive to detail, and committed to delivering quality. I would highly recommend to anyone looking for reliable and stylish interior design and execution. They brought creativity and professionalism to the table and transformed the space beyond my expectations..", rating: 5, initials: "SA", image: "people_pics_reviews/Salim Ansari.jpeg" },
   { name: "Divya Ajith", location: "", text: "Really happy with D3 interior design! Mr muhammed Sha, hes super calm, a great listener, and always made sure our ideas and concerns were heard. Very pleasant to work with and down to earth. Loved how everything turned out totally satisfied with his work!", rating: 5, initials: "DA" },
-  { name: "Afsal Shaji", location: "", text: "Outstanding service and exceptional design expertise! We hired D3 interior & Architecture Design studio to redesign our living and office spaces, and the results exceeded our expectations. Their team understood our vision and translated it into a functional and aesthetic design that perfectly fits our lifestyle and needs. From the initial consultation to the final installation, their professionalism, creativity, and attention to detail were truly impressive. We highly recommend D3 interior & Architecture Design studio to anyone seeking high-quality, personalized interior design solutions.", rating: 5, initials: "AS" },
-  { name: "Salim Ansari", location: "", text: "Im very pleased with the outcome. From the initial consultation to the final touches, the team was professional, attentive to detail, and committed to delivering quality. I would highly recommend to anyone looking for reliable and stylish interior design and execution. They brought creativity and professionalism to the table and transformed the space beyond my expectations..", rating: 5, initials: "SA" },
+  { name: "Afsal Shaji", location: "", text: "Outstanding service and exceptional design expertise! We hired D3 interior & Architecture Design studio to redesign our living and office spaces, and the results exceeded our expectations. Their team understood our vision and translated it into a functional and aesthetic design that perfectly fits our lifestyle and needs. From the initial consultation to the final installation, their professionalism, creativity, and attention to detail were truly impressive. We highly recommend D3 interior & Architecture Design studio to anyone seeking high-quality, personalized interior design solutions.", rating: 5, initials: "AS", image: "people_pics_reviews/Afsal Shaji.jpeg" },
   { name: "Muhammad Afzal N", location: "", text: "Absolutely love the work this company did for my kitchen design and living room. Their modular kitchen designs are sleek, modern, and functional. Plus, the overall home decor and layout are spot on. Very reliable and creative interior designers. Worth every penny", rating: 5, initials: "MA" },
   { name: "Ajmal Aj", location: "", text: "Fabulous creations in Doing Interiors as well as Their space planning ideas are very extraordinary in ..they always set out of newer modes of fittings , harwares and color themes according to the space and area . Any way congrats to team d3 studio and also happy to hear for their new journey to be as a distributor of Ozone Overseas pvt ltd kitchen hardwares and accessories. Thank you all", rating: 5, initials: "AA" },
 ];
@@ -1706,7 +1719,7 @@ function buildGrids() {
       <div class="testimonial-stars">${Array.from({length:5}).map((_, j) => `<span class="${j < t.rating ? 'star-on' : 'star-off'}">★</span>`).join('')}</div>
       <p class="testimonial-text">"${t.text}"</p>
       <div class="testimonial-author">
-        <div class="testimonial-avatar">${t.initials}</div>
+        <div class="testimonial-avatar">${t.image ? `<img src="${escapeHtml(t.image)}" alt="${escapeHtml(t.name)}" loading="lazy" decoding="async">` : t.initials}</div>
         <div><div class="testimonial-name">${t.name}</div>${t.location ? `<div class="testimonial-loc">${t.location}</div>` : ''}</div>
       </div>
     </div>
